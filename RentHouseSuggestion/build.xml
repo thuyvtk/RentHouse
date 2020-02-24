@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="RentHouseSuggestion_v0.0" default="default" basedir=".">
-    <description>Builds, tests, and runs the project RentHouseSuggestion_v0.0.</description>
+<project name="RentHouseSuggestion" default="default" basedir=".">
+    <description>Builds, tests, and runs the project RentHouseSuggestion.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
