@@ -47,7 +47,7 @@ public class XMLSyntaxChecker {
     }
 
     private Character quote;
-    
+
     public String check(String src) {
         src = src + " ";
         char[] reader = src.toCharArray();
@@ -146,7 +146,7 @@ public class XMLSyntaxChecker {
                         if (isStartAttrChar(c)) {
                             state = ATTR_NAME;
                             attributes.put(attrName.toString(), "true");
-                            
+
                             attrName.setLength(0);
                             attrName.append(c);
                         }
@@ -154,15 +154,15 @@ public class XMLSyntaxChecker {
                     break;
                 case EQUAL:
                     if (isSpace(c)) { // loop
-                        
+
                     } else if (c == D_QUOT || c == S_QUOT) {
                         quote = c;
                         state = ATTR_VALUE_Q;
-                        
+
                         attrValue.setLength(0);
-                    } else if (!isSpace(c) && c!= GT) { //<input type=text>
+                    } else if (!isSpace(c) && c != GT) { //<input type=text>
                         state = ATTR_VALUE_NQ;
-                        
+
                         attrValue.setLength(0);
                         attrValue.append(c);
                     }
@@ -195,7 +195,7 @@ public class XMLSyntaxChecker {
                 case CLOSE_TAG_SLASH:
                     if (isStartTagChars(c)) {
                         state = CLOSE_TAG_NAME;
-                        
+
                         closeTag.setLength(0);
                         closeTag.append(c);
                     }
@@ -217,13 +217,65 @@ public class XMLSyntaxChecker {
                     break;
                 case CLOSE_BRACKET:
                     if (isOpenTag) {
-                        String openNameTag = openTag.toString().toLowerCase();
-                        
+                        String openTagName = openTag.toString().toLowerCase();
+
+                        if (INLINE_TAG.contains(openTagName)) {
+                            isEmptyTag = true;
+                        }
+                        writer.append(LT)
+                                .append(openTagName)
+                                .append(convert(attributes))
+                                .append((isEmptyTag ? "/" : ""))
+                                .append(GT);
+                        attributes.clear();
+                        // STACK: PUSH OPEN-TAG
+                        if (!isEmptyTag) {
+                            stack.push(openTagName);
+                        }
+                    } else if (isCloseTag) {
+                        // STACK : POPOUT 
+                        String closeTagName = closeTag.toString().toLowerCase();
+
+                        if (!stack.isEmpty() && stack.contains(closeTagName)) {
+                            while (!stack.isEmpty() && !stack.peek().equals(closeTagName)) {
+                                writer.append(LT)
+                                        .append(SLASH)
+                                        .append(stack.pop())
+                                        .append(GT);
+                            }
+                            if (!stack.isEmpty() && stack.peek().equals(closeTagName)) {
+                                writer.append(LT)
+                                        .append(SLASH)
+                                        .append(stack.pop())
+                                        .append(GT);
+                            }
+                        } // end close-tag missing
                     }
+
+                    if (c == LT) {
+                        state = OPEN_BRACKET;
+                    } else {
+                        state = CONTENT;
+
+                        content.setLength(0);
+                        content.append(c);
+                    }
+                    break;
             }
         }
+        if (CONTENT.equals(state)) {
+            writer.append(content.toString().trim().replace("&", "&amp;"));
+        }
 
-        return null;
+        // pop out all left tags 
+        while (!stack.isEmpty()) {
+            writer.append(LT)
+                    .append(SLASH)
+                    .append(stack.pop())
+                    .append(GT);
+        }
+
+        return writer.toString();
     }
 
 }

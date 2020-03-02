@@ -21,7 +21,7 @@
         <xsl:variable name="listDoc" select="document(@link)"/>
         <xsl:variable name="host" select="@link"/>
         <xsl:variable name="link_phongtro" select="$listDoc//a[  span = 'Phòng trọ']/@href"/>
-        <xsl:value-of select="$link_phongtro"/>
+        <xsl:value-of select="thuy"/>
     </xsl:template>
 
 </xsl:stylesheet>
