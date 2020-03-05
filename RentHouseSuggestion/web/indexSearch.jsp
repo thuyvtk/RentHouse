@@ -13,25 +13,25 @@
         <link rel="stylesheet" href="css/default.css"/>
         <script type="text/javascript" src="js/default.js"></script>
     </head>
-    <body onload="return displaySearchSimpleSpace()">
+    <body onload="return displaySearchOptionSpace()">
         <!--        header-->
         <div class="header_container">
-            <div class="logo"></div>
+            <div class="logo" onclick="location.href = ''"></div>
             <div class="line">
                 <p>TÌM KIẾM NGÔI NHÀ TRONG MƠ CỦA BẠN</p>
             </div>
             <div class="love_list"></div>
-            <div class="login"></div>
+            <div class="login" onclick="location.href = 'loginPage.html'"></div>
         </div>
-        
-        <!--search bar-->
+
+        <!--search space-->
         <div class="search_container">
-            <div class="search_space" id="search_option">
-                <input id="btn_more_option" type="submit" value="Tùy chọn nâng cao" name="btnMoreOption" onclick="return displaySearchSimpleSpace()"/>
+            <div id="search_space">
+                <input id="search_bar" type="text" name="txtSearchValue" placeholder="Tìm theo khu vực, địa điểm..." />
+                <input type="submit" value="Tìm kiếm" name="action" id="btn_Search"/>
+                <br/>
+                <input id="btn_MoreOption" type="submit" value="Tùy chọn nâng cao" name="btnMoreOption" onclick="return displaySearchOptionSpace()"/>
             </div>
-<!--            <div class="search_space" id="search_simple">
-                <input id="btn_more_simple" type="submit" value="Tùy chọn nâng cao" name="btnMoreSimple" onclick="return displaySearchOptionSpace()"/>
-            </div>-->
         </div>
     </body>
 </html>

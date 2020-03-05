@@ -6,5 +6,6 @@ and open the template in the editor.
 -->
 
 
+<!--<house_phongtot link="http://phongtot.vn/phong-tro-nha-tro/" xmlns="thuyvtk.xsd">-->
 <house_phongtot link="http://phongtot.vn/" xmlns="thuyvtk.xsd">
 </house_phongtot>

@@ -23,14 +23,19 @@ import thuyvtk.utils.StateMachine;
  */
 public class StAXParser {
     
+    // get data form web(uri) to wellformed and return inputStream
     public InputStream getStreamFromUriStateMachineUTF8(String uri) {
         URLConnection connection;
         try {
             URL url = new URL(uri);
             connection = url.openConnection();
             connection.setRequestProperty("User-Agent", "Mozilla 5.0 (Window; U; Windows NT 5.1; en-US; rv:1.8.0.11) ");
+            
             InputStream inputStream = connection.getInputStream();
+            
+            //get html code form input stream
             String content = getString(inputStream);
+            // use state machine to wellformed code html
             content = StateMachine.refineHTML(content);
             content = StateMachine.convertEntities(content);
             InputStream htmlResult = new ByteArrayInputStream(content.getBytes("UTF-8"));

@@ -20,8 +20,14 @@
     <xsl:template match="t:house_phongtot">
         <xsl:variable name="listDoc" select="document(@link)"/>
         <xsl:variable name="host" select="@link"/>
-        <xsl:variable name="link_phongtro" select="$listDoc//a[  span = 'Phòng trọ']/@href"/>
-        <xsl:value-of select="thuy"/>
-    </xsl:template>
+        <xsl:variable name="linkPhongtro" select="document($listDoc//ul[@class='nav navbar-nav']//a[ text()='Phòng trọ']/@href)"/>
+        
+        <xsl:element name="demo">
+            <xsl:for-each select="$linkPhongtro//div[@class='room-item']//div[@class='block-room-item-title']//a[contains(@href,'http')]">
+                <xsl:element name="house">
+                    <xsl:value-of select="./@href"/>
+                </xsl:element>
+            </xsl:for-each>
+        </xsl:element>
 
 </xsl:stylesheet>
