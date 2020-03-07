@@ -48,7 +48,7 @@ public class CrawlServlet extends HttpServlet {
                 DOMResult dom = Crawler.returnXMLResult(realPath+"WEB-INF/xml/phongtot.xml",realPath+"WEB-INF/xsl/phongtot.xsl");
                 TransformerFactory factory = TransformerFactory.newInstance();
                 Transformer transformer = factory.newTransformer();
-                StreamResult streamResult = new StreamResult(new FileOutputStream(realPath + "WEB-INF/xml/phongtot_output.xml"));
+                StreamResult streamResult = new StreamResult(new FileOutputStream(realPath + "WEB-INF/xml/phongtot_output.txt"));
                 transformer.transform(new DOMSource(dom.getNode()), streamResult);
                 
             } catch (FileNotFoundException | TransformerException ex) {

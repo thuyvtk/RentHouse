@@ -35,4 +35,7 @@ public class Crawler {
         return dom;
     }
     
+    public static void updatePageCount_Phongtot(String content){
+    }
+    
 }
