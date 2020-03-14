@@ -37,7 +37,7 @@ public class ProcessServlet extends HttpServlet {
         String url = INDEX_PAGE;
         try {
             String action = request.getParameter("action");
-            if (action == null) {
+            if (action == null || action.equals("")) {
             } else {
                 switch (action) {
                     case "crawl":

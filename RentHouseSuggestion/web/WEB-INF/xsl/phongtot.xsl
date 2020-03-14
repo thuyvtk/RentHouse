@@ -10,24 +10,24 @@
         <xsl:variable name="listDoc" select="document(@link)"/> 
         <xsl:variable name="host" select="@link"/> 
         <xsl:variable name="room_page_1" select="document($listDoc//ul[@class='nav navbar-nav']//a[ text()='Phòng trọ']/@href)"/>
-        <xsl:element name="roomList"> 
-            <xsl:element name="page">
-                <xsl:attribute name="page_number">1</xsl:attribute>
+        <xsl:element name="houses"> 
+            <!--<xsl:element name="page">-->
+<!--                <xsl:attribute name="page_number">1</xsl:attribute>
                 <xsl:attribute name="href">
                     <xsl:value-of select="$listDoc//ul[@class='nav navbar-nav']//a[ text()='Phòng trọ']/@href"/>
-                </xsl:attribute>
+                </xsl:attribute>-->
                 <!--get list room in page 1-->
                 <xsl:for-each select="$room_page_1//div[@class='room-item']//div[@class='block-room-item-title']//a[contains(@href,'http')]"> 
                     <xsl:element name="house"> 
-                        <xsl:attribute name="href">
+                        <xsl:element name="linkNew">
                             <xsl:value-of select="./@href"/> 
-                        </xsl:attribute>
+                        </xsl:element>
                         <xsl:call-template name="GetRoomDetail">
                             <xsl:with-param name="srcRoom" select="document(./@href)"/>
                         </xsl:call-template>
                     </xsl:element> 
                 </xsl:for-each>
-            </xsl:element>
+            <!--</xsl:element>-->
             
             <!--get page 2-35-->
             <xsl:for-each select="$room_page_1//ul[@class='pagination']//a[not(@rel='next')]">
@@ -76,19 +76,19 @@
         <xsl:variable name="pageNumber" select="substring-after($link, '?page=')"/>
         <!--<xsl:if test="$pageNumber &lt; 36">-->
         <xsl:if test="$pageNumber &lt; 10">
-            <xsl:element name="page">
-            <xsl:attribute name="page_number">
+            <!--<xsl:element name="page">-->
+<!--            <xsl:attribute name="page_number">
                 <xsl:value-of select="$pageNumber"/>
             </xsl:attribute>
             <xsl:attribute name="href">
             <xsl:value-of select="$link"/>
-            </xsl:attribute>
+            </xsl:attribute>-->
             
             <xsl:for-each select="$src//div[@class='room-item']//div[@class='block-room-item-title']//a[contains(@href,'http')]"> 
                     <xsl:element name="house"> 
-                        <xsl:attribute name="href">
+                        <xsl:element name="linkNew">
                             <xsl:value-of select="./@href"/> 
-                        </xsl:attribute>
+                        </xsl:element>
                         
                         <xsl:call-template name="GetRoomDetail">
                             <xsl:with-param name="srcRoom" select="document(./@href)"/>
@@ -97,7 +97,7 @@
                     </xsl:element> 
             </xsl:for-each>
             
-            </xsl:element>
+            <!--</xsl:element>-->
         </xsl:if>
     </xsl:template><!--create attr href-->
     
@@ -109,7 +109,7 @@
         <xsl:element name="img">
             <xsl:value-of select="$srcRoom//div[@class='room-detail-img']//div[@class='item']/img/@src"/>
         </xsl:element>
-        <xsl:element name="address">
+        <xsl:element name="rentAddress">
             <xsl:for-each select="$srcRoom//div[@class='main-info']//div[@class='address']/a">
                 <xsl:value-of select="concat(.,' ')"/>
             </xsl:for-each>
@@ -132,7 +132,7 @@
         <xsl:element name="bonus">
             <xsl:value-of select="$srcRoom//*[span[ @class='btn info-label' and text() = 'Tiện ích']]/a"/>
         </xsl:element>
-        <xsl:element name="price">
+        <xsl:element name="rentPrice">
             <xsl:value-of select="$srcRoom//div[@class='info-price']/a/text()"/>
         </xsl:element>
         <xsl:element name="detail">

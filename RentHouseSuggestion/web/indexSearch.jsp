@@ -27,11 +27,16 @@
         <!--search space-->
         <div class="search_container">
             <div id="search_space">
-                <input id="search_bar" type="text" name="txtSearchValue" placeholder="Tìm theo khu vực, địa điểm..." />
+                <input id="search_bar" class="controls" type="text" name="txtSearchValue" placeholder="Tìm theo khu vực, địa điểm..." />
                 <input type="submit" value="Tìm kiếm" name="action" id="btn_Search"/>
                 <br/>
                 <input id="btn_MoreOption" type="submit" value="Tùy chọn nâng cao" name="btnMoreOption" onclick="return displaySearchOptionSpace()"/>
             </div>
         </div>
+        <div id="map"></div>
+        
+        <!--API key google map-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcw-KnCAPzni3QYvgk3RDoTZL65xh8a4o&libraries=places&language=vi&region=VI&callback=initAutocomplete"
+        async defer></script>
     </body>
 </html>

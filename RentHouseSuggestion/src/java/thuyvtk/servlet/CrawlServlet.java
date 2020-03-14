@@ -22,6 +22,7 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import thuyvtk.crawler.Crawler;
+import thuyvtk.utils.XMLHelper;
 
 /**
  *
@@ -45,11 +46,20 @@ public class CrawlServlet extends HttpServlet {
             String url = ADMIN;
             try {
                 String realPath = request.getServletContext().getRealPath("/");
-                DOMResult dom = Crawler.returnXMLResult(realPath+"WEB-INF/xml/phongtot.xml",realPath+"WEB-INF/xsl/phongtot.xsl");
+//                DOMResult dom = Crawler.returnXMLResult(realPath+"WEB-INF/xml/phongtot.xml",realPath+"WEB-INF/xsl/phongtot.xsl");
+//                TransformerFactory factory = TransformerFactory.newInstance();
+//                Transformer transformer = factory.newTransformer();
+//                StreamResult streamResult = new StreamResult(new FileOutputStream(realPath + "WEB-INF/xml/phongtot_output.xml"));
+//                transformer.transform(new DOMSource(dom.getNode()), streamResult);
+//                XMLHelper.JAXBUnmarshallingHouse(realPath+"WEB-INF/xml/phongtot_output.xml");
+                
+                
+                DOMResult dom = Crawler.returnXMLResult(realPath+"WEB-INF/xml/thuenhatro360.xml",realPath+"WEB-INF/xsl/thuenhatro360.xsl");
                 TransformerFactory factory = TransformerFactory.newInstance();
                 Transformer transformer = factory.newTransformer();
-                StreamResult streamResult = new StreamResult(new FileOutputStream(realPath + "WEB-INF/xml/phongtot_output.xml"));
+                StreamResult streamResult = new StreamResult(new FileOutputStream(realPath + "WEB-INF/xml/thuenhatro360_output.xml"));
                 transformer.transform(new DOMSource(dom.getNode()), streamResult);
+//                XMLHelper.JAXBUnmarshallingHouse(realPath+"WEB-INF/xml/phongtot_output.xml");
                 
             } catch (FileNotFoundException | TransformerException ex) {
                 Logger.getLogger(CrawlServlet.class.getName()).log(Level.SEVERE, "CrawlServler:", ex.getMessage());

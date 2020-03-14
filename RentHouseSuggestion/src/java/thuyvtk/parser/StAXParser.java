@@ -15,6 +15,9 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamReader;
+import thuyvtk.jaxB.ListHouse;
 import thuyvtk.utils.StateMachine;
 
 /**
@@ -60,5 +63,26 @@ public class StAXParser {
         }
         return stringBuilder.toString();
     }
+    
+    public ListHouse crawlSchool(XMLStreamReader reader) {
+        ListHouse listHouse = new ListHouse();
+        try {
+            while (reader.hasNext()) {
+                int cursor = reader.next();
+                if (cursor == XMLStreamConstants.START_ELEMENT) {
+                    String tagName = reader.getLocalName();
+                    if ("house".equals(tagName)) {
+                        String schoolName = reader.getElementText();
+//                        schoolName = TextUtils.getSchoolName(schoolName);
+//                        schools.getSchool().add(schoolName);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listHouse;
+    }
+    
     
 }
